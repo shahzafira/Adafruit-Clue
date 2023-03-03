@@ -4,13 +4,13 @@ class LED:
     """LED class allows users to control the LED lights in the greenhouse
     (neopixel ZIP 5 LED strip lights)
     """
-    PIXEL_PIN = board.D8
-    ORDER = neopixel.GRB
     WHITE = (255, 255, 255)
     OFF = (0, 0, 0)
     COLOURS = (WHITE, WHITE, WHITE, WHITE)
 
     def __init__(self):
+        PIXEL_PIN = board.D8
+        ORDER = neopixel.GRB
         pixel = neopixel.NeoPixel(PIXEL_PIN, 8, pixel_order=ORDER)
         for light in range(3, 8):
             pixel[light] = OFF
