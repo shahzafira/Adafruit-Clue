@@ -32,34 +32,33 @@ import neopixel
 from analogio import AnalogIn
 import digitalio
 import time
-import rtc
 import microcontroller
 
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/shahzafira/Adafruit_CircuitPython_Peripherals.git"
 
-class Facade:
+class Peripherals:
 
     WHITE = (255, 255, 255)
     OFF = (0, 0, 0)
-    COLOURS = (WHITE, WHITE, WHITE, WHITE)
+    COLOURS = (OFF, OFF, OFF, OFF, OFF)
 
     def __init__(self):
         # LED related initialisation
-        PIXEL_PIN = board.D8
-        ORDER = neopixel.GRB
-        pixel = neopixel.NeoPixel(PIXEL_PIN, 8, pixel_order=ORDER)
+        self.PIXEL_PIN = board.D8
+        self.ORDER = neopixel.GRB
+        self.pixel = neopixel.NeoPixel(self.PIXEL_PIN, 8, pixel_order=self.ORDER)
         for light in range(3, 8):
-            pixel[light] = OFF
+            self.pixel[light] = self.COLOURS[light - 3]
         
         # Moisture sensor related initialisation
-        analog_in = AnalogIn(board.A2)
+        self.analog_in = AnalogIn(board.A2)
 
         # Motor related initialisation
-        motor_pin = digitalio.DigitalInOut(board.MISO)
-        motor_pin.direction = digitalio.Direction.OUTPUT
+        self.motor_pin = digitalio.DigitalInOut(board.MISO)
+        self.motor_pin.direction = digitalio.Direction.OUTPUT
 
-    def setColourLED(p1, p2=None, p3=None, p4=None):
+    def setColourLED(self, p1, p2=None, p3=None, p4=None, p5=None):
         """setcolour Changes the colour of each LED pixel
         If only one value is specified, all pixels use the same value.
         This does not turn on the LEDs
@@ -68,13 +67,19 @@ class Facade:
         param p2: 3-tuple in RGB order to change the colour of the second pixel
         param p3: 3-tuple in RGB order to change the colour of the third pixel
         param p4: 3-tuple in RGB order to change the colour of the fourth pixel
+        param p5: 3-tuple in RGB order to change the colour of the fifth pixel
         """
-        if p2 == None:
-            COLOURS = (p1, p1, p1, p1)
+        pixels = (p1, p2, p3, p4, p5)
+        if pixels[1] == None:
+            COLOURS = (pixels[0], pixels[0], pixels[0], pixels[0], pixels[0])
         else:
-            COLOURS = (p1, p2, p3, p4)
+            for light in range(0, 5):
+                if pixels[light] != None:
+                    COLOURS[light] = pixels[light]
+                else:
+                    COLOURS[light] = self.OFF
         
-    def turnOnLED(p1, p2=None, p3=None, p4=None):
+    def turnOnLED(self, p1, p2=None, p3=None, p4=None, p5=None):
         """turnOnLED turns on the specified LED lights
         If only one parameter is given, then all pixels will do the same
 
@@ -82,13 +87,18 @@ class Facade:
         param p2: boolean value to turn on pixel two, default set to p1
         param p3: boolean value to turn on pixel three, default set to p1
         param p4: boolean value to turn on pixel four, default set to p1
+        param p5: boolean value to turn on pixel five, default set to p1
         """
-        pixels = (p1, p2, p3, p4)
-        for light in range(3, 8):
-            if pixels[light] == True:
-                pixel[light] = COLOURS[light - 3]
+        pixels = (p1, p2, p3, p4, p5)
+        if pixels[1] == None:
+            for light in range(3, 8):
+                self.pixel[light] = self.COLOURS[light - 3]
+        else:
+            for light in range(3, 8):
+                if pixels[light - 3] == True:
+                    self.pixel[light] = self.COLOURS[light - 3]
 
-    def turnOffLED(p1, p2=None, p3=None, p4=None):
+    def turnOffLED(self, p1, p2=None, p3=None, p4=None, p5=None):
         """turnOnLED turns off the specified LED lights
         If only one parameter is given, then all pixels will do the same
 
@@ -96,46 +106,47 @@ class Facade:
         param p2: boolean value to turn off pixel two, default set to p1
         param p3: boolean value to turn off pixel three, default set to p1
         param p4: boolean value to turn off pixel four, default set to p1
+        param p5: boolean value to turn off pixel five, default set to p1
         """
-        pixels = (p1, p2, p3, p4)
+        pixels = (p1, p2, p3, p4, p5)
         for light in range(3, 8):
-            if pixels[light] == False:
-                pixel[light] = OFF
+            if pixels[light - 3] == False:
+                self.pixel[light] = self.OFF
 
-    def LEDTimer(sec):
+    def LEDTimer(self, sec):
         """LEDTimer turns on the LEDs for the specified time in seconds
         Uses the colours set with setColourLED
         
         param sec: integer time in seconds"""
-        turnOnLED(True)
+        self.turnOnLED(True)
         time.sleep(sec)
-        turnOffLED(True)
+        self.turnOffLED(True)
 
-    def getMoistureLevel():
+    def getMoistureLevel(self):
         """getMoistureLevel returns the moisture level in Volts
         0-3V
         """
-        return (analog_in.value * 3.3) / 65536
+        return (self.analog_in.value * 3.3) / 65536
 
-    def startMotor():
+    def startMotor(self):
         """start turns on the motor to pump the water
         """
-        motor_pin.value = True
+        self.motor_pin.value = True
 
-    def stopMotor():
+    def stopMotor(self):
         """stop turns off the motor to stop the flow of water
         """
-        motor_pin.value = False
+        self.motor_pin.value = False
     
-    def motorTimer(sec):
+    def motorTimer(self, sec):
         """turns on the motor for a specified time (in seconds)
         
         param time: integer time in seconds"""
-        motor_pin.value = True
+        self.motor_pin.value = True
         time.sleep(sec)
-        motor_pin.value = False
+        self.motor_pin.value = False
 
-    def getTemperature():
+    def getTemperature(self):
         """getTempterature returns the current temperature from the on
         board microcontroller
         """
