@@ -1,7 +1,9 @@
 # Recreating the code for the experiments using my library
-import adafruit_peripherals
+from adafruit_peripherals import Peripherals
+import rtc
+import time
 
-hardware = Facade()
+hardware = Peripherals()
 
 # moisture level
 MOISTURE_LEVEL = 0.5
@@ -11,15 +13,17 @@ r = rtc.RTC()
 r.datetime = time.struct_time((2022, 1, 1, 0, 0, 0, 0, 0, 0))
 
 # greenlight
-hardware.setColourLED((0,255,0))
+green = (0, 255, 0)
+hardware.setColourLED(green)
+hardware.turnOnLED(True)
 
 try:
-    with open("/test.txt", a) as f:
+    with open("/test.txt", "a") as f:
         while True:
             curr_dt = r.datetime
             curr_t = "{0}:{1}".format(curr_dt.tm_hour, curr_dt.tm_min)
-            temp = hardware.getTemperature
-            bef_moist = hardware.getMoistureLevel
+            temp = hardware.getTemperature()
+            bef_moist = hardware.getMoistureLevel()
             is_water = False
             curr_moist = bef_moist
 
@@ -33,9 +37,9 @@ try:
                 day = curr_dt.tm_mday, t = curr_t,
                 temp = temp, b_moist = bef_moist,
                 is_water = is_water, a_moist = after_moist)
-            ex.write(curr_status)
+            f.write(curr_status)
             print(curr_status)
-            ex.flush()
+            f.flush()
 
             # sleep for an hour
             curr_hour = curr_dt.tm_hour
