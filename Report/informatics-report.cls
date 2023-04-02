@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
 \LoadClass{report}
-\ProvidesClass{informatics-report}[2012/10/07 Informatics Final Year Project Report Class]
+\ProvidesClass{informatics-report}[2022/12/10 Informatics Final Year Project Report Class]
 
 \usepackage{graphicx}
 \usepackage[left=1.4in, right=1.4in, top=0.8in, bottom=1.0in]{geometry}

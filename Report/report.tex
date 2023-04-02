@@ -1,18 +1,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 6CCS3PRJ Final Year Individual Project Report
-% luke.day@kcl.ac.uk
+% zafira.shah@kcl.ac.uk
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[11pt]{informatics-report}
 \usepackage{color}
 \usepackage[square,sort,comma,numbers]{natbib} %References
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{pythonhighlight}
+\usepackage{xparse}
+\usepackage{float}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Front Matter - project title, name, supervisor name and date
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{6CCS3PRJ Final Year\\\vspace{0.2cm}Individual Project Report Title}
-\author{Your Name}
-\studentID{000000}
-\supervisor{Name}
+\title{6CCS3PRJ Final Year Project\\\vspace{0.2cm}Adafruit CLUE (Development Board)}
+\author{Zafira Shah}
+\studentID{19008701}
+\supervisor{Dr Jeffery Raphael}
 
 \date{\today}
 
@@ -31,17 +38,38 @@
 % You can write each chapter directly here or in a separate .tex file and use the include command.
 
 \chapter{Introduction}
-This is one of the most important components of the report. It should begin with a clear statement of what the project is about so that the nature and scope of the project can be understood by a lay reader. It should summarise everything that you set out to achieve, provide a clear summary of the project's background and relevance to other work, and give pointers to the remaining sections of the report, which will contain the bulk of the technical material.
+Climate change is a long term effect on the temperature and weather patterns on Earth. Often overlooked, it can have massive detrimental effects on our health, food production and the environment around us \cite{unitedNations}. The increase in temperature around the globe is causing a variety of disasters to different environments including droughts, fires and a general decrease in biodiversity. This can effect one major resource that is already in high demand: food. Growing crops and feeding cattle already require a lot of land, water and fertile soil. With rising temperatures and volatile weather, these can be difficult to maintain a steady growth and therefore income for many.
+
+With the increase in population, we’re in more need of food than ever before. Many new methods have been arising in how to efficiently harvest produce towards a more sustainable future. These can range from growing produce indoors (to take up less space), to artificially growing meat products (as cattle require a lot more resources than crops).
+
+Due to the high demand in meat and poultry, research towards growing meat from stem cells is a popular topic in terms of a sustainable feeding culture. To the time of writing this report, only one company have come close to approval, given the first safety sign-off by the FDA for food made from cultured animal cells \cite{FDA}. Although cattle alternatives likely have a higher impact on climate change, the growth of produce also requires a lot of resources and effort, and is largely at risk due to the increasing global droughts and fires occurring worldwide. Another issue is deforestation and how the land used can become severely polluted \cite{foodWasteAshok}.
+
+Climate change affects every area differently. This can be based on average temperatures and weather patterns in the area to many other factors. \cite{agriculturalAdaptationAnderson} In warmer countries, this can lead to temperatures too high to harvest that area’s regular produce. However in colder environments, an increase in warmth can lead to the ability to grow more produce and harvest a higher yield than before. Globally, cereal production has decreased by an estimate of 9-10\% during 1964-2007. In cooler countries such as Czech Republic, the temperature increase found fruiting vegetables (fruits that are eaten like vegetables e.g. cucumbers and tomatoes) having a more positive long-term impact. However root vegetables had a decrease in yield \cite{CzechPotopova}.
+
+In this project, we will focus on how we can make use of new technological advances such as machine learning to grow produce more efficiently. This can include harvesting a higher yield, but also making the most of the resources we have and therefore lowering our carbon footprint.
+
+\section{Aims and Objectives}
+This report will go through what climate change is and why it's an important topic. We will also cover what machine learning can do and how we can make use of this resource to make growing produce a more efficient process while preventing irreversible damage along the way.
+
+To so so, over the course of 2 to 3 months, a number of different experiments will be run. These will be based on different growing environments for cress. Although cress is a simple plant that grows without much maintenance, it grows fast enough to run several experiments to ensure there is sufficient data to draw a conclusion on how difference variables may affect growth of different plants. The variables that will be changed include light and moisture as these can be controlled by the Kitronik greenhouse. Other measurements will be taken however to see what changes occur in the cress, and also different environmental factors to ensure a constant growing environment.
+
+Alongside this, a library will be created to allow Adafruit CLUE users to create projects using the Kitronik Smart Greenhouse kit, as it is designed for use with the BBC Micro:bit. This may then be used to recreate the experiments taking place in this project or to further the research presented here. The aim of creating this module is to show that the greenhouse kit can be used by any hardware that is readily available to us. Making experimental technology easy to access allows for more creativity and a great learning experience.
 
 \section{Report Structure}
 
-\include{Chapters/Background}
-\include{Chapters/Body}
-\include{Chapters/DesignSpecification}
-\include{Chapters/Implementation}
-\include{Chapters/ProfessionalIssues}
-\include{Chapters/Evaluation}
-\include{Chapters/Conclusion}
+This report will cover the motivation behind this project and all the background information for necessary equipment to carry out the experiments and research. A specifications chapter will cover the user stories and different types of requirements for each part of this project. The design chapter will discuss the structure of the experiments and library, followed by an evaluation and conclusion discussing the outcomes of the code and the experiments that have been run.
+
+
+\include{Report/Chapters/1.Background}
+% \include{Chapters/Body}
+\include{Report/Chapters/2.Specification}
+\include{Report/Chapters/3.Design}
+\include{Report/Chapters/4.Implementation}
+\include{Report/Chapters/5.MachineLearningModel}
+\include{Report/Chapters/ProfessionalIssues}
+\include{Report/Chapters/6.Evaluation}
+\include{Report/Chapters/7.Conclusion}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % References
@@ -54,7 +82,7 @@ This is one of the most important components of the report. It should begin with
 % Appendices
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
-\include{Appendices/appendix}
-\include{Appendices/UserGuide}
-\include{Appendices/SourceCode}
+\include{Report/Appendices/appendix}
+\include{Report/Appendices/UserGuide}
+\include{Report/Appendices/SourceCode}
 \end{document}
