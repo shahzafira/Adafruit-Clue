@@ -1,0 +1,60 @@
+\chapter{Requirements \& Specification}
+% user stories should be somewhere
+
+\section{Brief}
+
+To see how different factors can affect the growth of plants, an experiment involving growing cress in varying environments will be run. A library will then be created in CircuitPython to make the creation of code (such as the experiments) for the Adafruit CLUE cleaner and easier to use.
+
+\section{Experiments}
+
+The Kitronik smart greenhouse will be the house to the experiments. Cress will be the seeds growing inside, and for each iteration of the experiment, the environment will be changed. The results for each round will be compared to the control run to see the difference in the final harvest. The purpose of this experiment is to show how changing parameters can affect the yield. This in turn shows that using machine learning can help us maximise yields by identifying the optimal levels of each variable.
+
+\subsection{Variables}
+
+The experiments that will be run in the Kitronik greenhouse will record the following:
+
+\begin{itemize}
+    \item Temperature
+    \item Moisture levels of the soil
+    \item Light (intensity and colour)
+    \item Average height of cress strands
+    \item Number of leaves
+    \item Pictures of final growth for comparison
+\end{itemize}
+
+The first experiment will be a control, where there is only while light from the zip LEDs and a constant minimum moisture level of 0.5v. From there, the components that will be changed are the LEDs or the minimum moisture level. For the moisture level experiments, the minimum moisture levels (unit: voltage) will be set in the code using global constants. If the current water level falls below the given minimum, the motor will turn on to spray water briefly in order to bring the level back up. This should maintain a constant level and ideally show a difference in growth compared to the control run.
+
+These experiments will run over the course of 6 weeks, giving each experiment one week to progress. At the same time every week, a record of the results will be taken and preparations for the next experiment will be made. This will include general maintenance of the greenhouse, replacing the water source, topping up soil if there is not sufficient and altering the code. At the end of the experimentation phase, we will compare the results to see if any difference was made by changing the variables. The aim is to see that light affects the cress growth differently to the moisture level.
+
+\section{Library}
+
+\subsection{Requirements}
+
+To ensure the library includes everything we intend for it to do, writing up a list of requirements is essential. It helps visualise and prioritise functionality so developers do not get sidetracked into make unnecessary features or forget what's important to the client.
+
+\subsubsection{User Stories}
+
+\begin{itemize}
+    \item As a user, I would like the library to be small in file size as the board has limited storage space.
+    \item As a user, I would like to control the greenhouse equipment from my Adafruit CLUE.
+    \item As a user, I would like the library to be easy to import.
+    \item As a user, I would like the library to run fast and not slow down the code.
+\end{itemize}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item The library should allow the user to control the zip LEDs for the CLUE board.    
+    \item The library should allow the user to control the motor to pump water connected to the CLUE board.
+    \item The library should allow the user to get the moisture level of the environment the moisture sensor prongs are in.
+    \item The library should allow the user to read the current temperature from the built-in thermometer.
+\end{itemize}
+
+\subsubsection{Non-Functional Requirements}
+
+\begin{itemize}
+    \item The functions for the library should be well documented.
+    \item The library should not take up a lot or memory as the Adafruit CLUE board only has a storage space of about 2MB.
+    \item The library should be easy to download and import.
+    \item The library should be fast and not slow down the user's code.
+\end{itemize}
+
